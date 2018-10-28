@@ -3,11 +3,23 @@ import QuizQuestionButton from './QuizQuestionButton';
 
 class QuizQuestion extends Component{
 
+    constructor(props){
+        super(props);
+
+        this.state = {
+            incorrectAnswer : false
+        }
+
+    }
+
     // Checks if the button pressed is the correct answer by using the button's text
     // and calls the showNextQuestionHandler in the Quiz Component
     handleClick(buttonText){
         if(buttonText === this.props.quiz_question.answer){
+            this.setState({incorrectAnswer: false})
             this.props.showNextQuestionHandler()
+        }else{
+            this.setState({incorrectAnswer: true})
         }
     }
 
@@ -28,6 +40,7 @@ class QuizQuestion extends Component{
                          })}
                     </ul>
                 </section>
+                {this.state.incorrectAnswer ? <p>Incorrect Answer</p> : null}
             </main>
         );
     }
